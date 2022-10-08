@@ -92,7 +92,7 @@ module.exports = {
       accounts: [PRIVATE_KEY],
     },
     mumbai: {
-      url: "https://rpc-mumbai.matic.today",
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       chainId: 80001,
       accounts: [PRIVATE_KEY],
       saveDeployments: true,
@@ -128,7 +128,7 @@ module.exports = {
       saveDeployments: true,
     },
     klaytn_testnet: {
-      url: "https://api.baobab.klaytn.net:8651",
+      url: "https://public-node-api.klaytnapi.com/v1/baobab",
       chainId: 1001,
       accounts: [PRIVATE_KEY],
       saveDeployments: true,
