@@ -30,9 +30,7 @@ contract DappStopRegistry is IDappStopRegistry {
     );
     event Updated(uint256 indexed dappId, DappInfo dappInfo);
 
-    constructor() {
-        DAPPSTOP_POP = new DappStopPoP(address(this));
-    }
+    constructor() {}
 
     function buy(uint256 _dappId) external payable override {
         require(
@@ -112,5 +110,13 @@ contract DappStopRegistry is IDappStopRegistry {
         returns (DappInfo memory)
     {
         return dappInfo[_dappId];
+    }
+
+    function setPOP(DappStopPoP _DAPPSTOP_POP) external {
+        require(
+            address(DAPPSTOP_POP) == address(0),
+            "DappStopRegistry: DAPPSTOP_POP has already been set"
+        );
+        DAPPSTOP_POP = _DAPPSTOP_POP;
     }
 }

@@ -28,7 +28,7 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     // Contract symbol
     string public symbol;
     // Dappstop Registry Address
-    address public dappStopRegistry;
+    address public REGISTRY;
     // Token Index
     uint256 public index;
 
@@ -44,14 +44,18 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
      * @dev Require msg.sender to be the registry
      */
     modifier registryOnly() {
-        require(msg.sender == dappStopRegistry, "DappStopPoP: Registry Only");
+        require(msg.sender == REGISTRY, "DappStopPoP: Registry Only");
         _;
     }
 
-    constructor(address registry) ERC1155("") {
+    constructor() ERC1155("") {
         name = "DappStopPoP";
         symbol = "DSPOP";
-        dappStopRegistry = registry;
+    }
+
+    function setRegistry(address registry) external {
+        require(REGISTRY == address(0), "DappStopPoP: Registry Already Set!");
+        REGISTRY = registry;
     }
 
     function uri(uint256 _id) public view override returns (string memory) {

@@ -8,7 +8,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }: any) => {
   const chainId = await getChainId();
 
   // Config
-  console.log(`Deploying DappStopRegistry Contract... from ${deployer}`);
+  console.log(`Deploying DappStopPoP Contract... from ${deployer}`);
 
   // Chain Specific Parameters
   if (chainId === "80001") {
@@ -23,7 +23,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }: any) => {
     console.log("Unknown Chain");
   }
 
-  let contract = await deploy("DappStopRegistry", {
+  let contract = await deploy("DappStopPoP", {
     from: deployer,
     args: [],
   });
