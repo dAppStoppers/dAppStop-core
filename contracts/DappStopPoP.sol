@@ -27,10 +27,8 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     string public name;
     // Contract symbol
     string public symbol;
-
     // Dappstop Registry Address
     address public dappStopRegistry;
-
     // Token Index
     uint256 public index;
 
