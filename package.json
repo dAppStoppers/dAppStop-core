@@ -11,6 +11,9 @@
 				"deploy:ktest": "npx hardhat deploy --network klaytn_testnet --tags DappStop",
 				"verify:testnet": "npx hardhat --network goerli etherscan-verify",
 				"verify:mainnet": "npx hardhat --network mainnet etherscan-verify",
+				"verify:mumbai": "npx hardhat --network mumbai etherscan-verify",
+				"verify:otest": "npx hardhat --network optimism_testnet etherscan-verify",
+				"verify:ktest": "npx hardhat --network klaytn_testnet etherscan-verify",
 				"new:wallet": "npx hardhat new:wallet"
 		},
 		"author": "",
