@@ -4,6 +4,7 @@ coverage
 coverage.json
 typechain
 package-lock.json
+deployments/localhost
 
 #Hardhat files
 cache
