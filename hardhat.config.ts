@@ -121,6 +121,18 @@ module.exports = {
       accounts: [PRIVATE_KEY],
       saveDeployments: true,
     },
+    klaytn_mainnet: {
+      url: "https://klaytn04.fandom.finance",
+      chainId: 8217,
+      accounts: [PRIVATE_KEY],
+      saveDeployments: true,
+    },
+    klaytn_testnet: {
+      url: "https://api.baobab.klaytn.net:8651",
+      chainId: 1001,
+      accounts: [PRIVATE_KEY],
+      saveDeployments: true,
+    },
   },
   solidity: {
     compilers: [
