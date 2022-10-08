@@ -6,6 +6,9 @@
 		"scripts": {
 				"start": "npx hardhat node",
 				"test": "npx hardhat test",
+				"deploy:mumbai": "npx hardhat deploy --network mumbai --tags DappStop",
+				"deploy:otest": "npx hardhat deploy --network optimism_testnet --tags DappStop",
+				"deploy:ktest": "npx hardhat deploy --network klaytn_testnet --tags DappStop",
 				"verify:testnet": "npx hardhat --network goerli etherscan-verify",
 				"verify:mainnet": "npx hardhat --network mainnet etherscan-verify",
 				"new:wallet": "npx hardhat new:wallet"
