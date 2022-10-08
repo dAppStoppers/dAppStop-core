@@ -60,11 +60,10 @@ contract DappStopRegistry is IDappStopRegistry {
             bytes(_dappInfo.ceramicURI).length > 0,
             "DappStopRegistry: Invalid ceramicURI!"
         );
-        require(_dappInfo.price != 0, "DappStopRegistry: Invalid price!");
 
-        DAPPSTOP_POP.create(msg.sender, _dappInfo.popURI);
+        DAPPSTOP_POP.create(_dappInfo.creator, _dappInfo.popURI);
 
-        emit Registered(msg.sender, dappId, _dappInfo);
+        emit Registered(_dappInfo.creator, dappId, _dappInfo);
     }
 
     function update(uint256 _dappId, DappInfo memory _dappInfo)
@@ -88,7 +87,6 @@ contract DappStopRegistry is IDappStopRegistry {
             bytes(_dappInfo.ceramicURI).length > 0,
             "DappStopRegistry: Invalid ceramicURI!"
         );
-        require(_dappInfo.price != 0, "DappStopRegistry: Invalid price!");
 
         dappInfo[_dappId] = _dappInfo;
         DAPPSTOP_POP.updateURI(_dappId, _dappInfo.popURI);
