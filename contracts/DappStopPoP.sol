@@ -21,11 +21,9 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     mapping(uint256 => uint256) public tokenSupply;
     // Each individual app will have a customUri
     mapping(uint256 => string) public customUri;
-    mapping(uint256 => uint256) public price;
 
     // Contract name
     string public name;
-    // Contract symbol
     string public symbol;
     // Dappstop Registry Address
     address public REGISTRY;
@@ -56,6 +54,10 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     function setRegistry(address registry) external {
         require(REGISTRY == address(0), "DappStopPoP: Registry Already Set!");
         REGISTRY = registry;
+    }
+
+    function updateURI(uint256 _id, string memory _uri) external registryOnly {
+        customUri[_id] = _uri;
     }
 
     function uri(uint256 _id) public view override returns (string memory) {
@@ -89,18 +91,16 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     /**
      * @dev Creates a new token
      * @param _creator address of the creator of the token
-     * @param _price uint256 price of the token
      * @param _uri string URI for the token
      * @return tokenId ID of the token
      */
-    function create(
-        address _creator,
-        uint256 _price,
-        string memory _uri
-    ) public registryOnly returns (uint256) {
+    function create(address _creator, string memory _uri)
+        public
+        registryOnly
+        returns (uint256)
+    {
         uint256 _id = index;
         creators[_id] = _creator;
-        price[_id] = _price;
 
         if (bytes(_uri).length > 0) {
             customUri[_id] = _uri;
@@ -121,9 +121,8 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
         address _to,
         uint256 _id,
         bytes memory _data
-    ) external payable {
+    ) external payable registryOnly {
         require(_exists(_id), "DappStopPoP: Non-existent token!");
-        require(msg.value == price[_id], "DappStopPoP: Incorrect price!");
         require(balanceOf(_to, _id) == 0, "DappStopPoP: Already minted!");
         _mint(_to, _id, 1, _data);
         tokenSupply[_id] += 1;

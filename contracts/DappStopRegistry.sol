@@ -35,7 +35,7 @@ contract DappStopRegistry is IDappStopRegistry {
     function buy(uint256 _dappId) external payable override {
         require(
             msg.value == getPrice(_dappId),
-            "DappStopRegistry: You must send the exact amount of ETH to buy this NFT"
+            "DappStopRegistry: Insufficient ETH!"
         );
 
         // Transfer ETH to creator
@@ -48,7 +48,7 @@ contract DappStopRegistry is IDappStopRegistry {
         uint256 dappId = DAPPSTOP_POP.tokenIndex();
         dappInfo[dappId] = _dappInfo;
 
-        DAPPSTOP_POP.create(msg.sender, _dappInfo.price, _dappInfo.popURI);
+        DAPPSTOP_POP.create(msg.sender, _dappInfo.popURI);
 
         emit Registered(msg.sender, dappId, _dappInfo);
     }
@@ -64,6 +64,7 @@ contract DappStopRegistry is IDappStopRegistry {
         );
 
         dappInfo[_dappId] = _dappInfo;
+        DAPPSTOP_POP.updateURI(_dappId, _dappInfo.popURI);
 
         emit Updated(_dappId, _dappInfo);
     }
@@ -77,6 +78,9 @@ contract DappStopRegistry is IDappStopRegistry {
         return dappInfo[_dappId].ceramicURI;
     }
 
+    /**
+     * @dev Returns the PoP URI of the dApp
+     */
     function getPoPURI(uint256 _dappId)
         external
         view
@@ -86,10 +90,16 @@ contract DappStopRegistry is IDappStopRegistry {
         return dappInfo[_dappId].popURI;
     }
 
+    /**
+     * @dev Returns the price of the dApp
+     */
     function getPrice(uint256 _dappId) public view override returns (uint256) {
         return dappInfo[_dappId].price;
     }
 
+    /**
+     * @dev Returns the creator of the dApp
+     */
     function getCreator(uint256 _dappId)
         public
         view
@@ -99,10 +109,16 @@ contract DappStopRegistry is IDappStopRegistry {
         return dappInfo[_dappId].creator;
     }
 
+    /**
+     * @dev Returns the total number of Dapps Registered
+     */
     function getDappCount() external view override returns (uint256) {
         return DAPPSTOP_POP.tokenIndex();
     }
 
+    /**
+     * @dev Returns the dapp info
+     */
     function getDappInfo(uint256 _dappId)
         external
         view
@@ -112,6 +128,9 @@ contract DappStopRegistry is IDappStopRegistry {
         return dappInfo[_dappId];
     }
 
+    /**
+     * @dev Set the PoP address
+     */
     function setPOP(DappStopPoP _DAPPSTOP_POP) external {
         require(
             address(DAPPSTOP_POP) == address(0),

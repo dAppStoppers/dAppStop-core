@@ -16,11 +16,9 @@ import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 interface IDappStopPoP is IERC1155 {
     function totalSupply(uint256 _id) external view returns (uint256);
 
-    function create(
-        address creator,
-        uint256 price,
-        string memory uri
-    ) external returns (uint256);
+    function create(address creator, string memory uri)
+        external
+        returns (uint256);
 
     function mint(
         address _to,
