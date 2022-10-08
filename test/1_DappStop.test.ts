@@ -53,7 +53,57 @@ describe("DappStop", function () {
       expect(await REGISTRY.getPrice(0)).to.equal(
         ethers.utils.parseEther("0.01")
       );
+      expect(await REGISTRY.getDappCount()).to.equal(1);
+
+      let dappInfo = await REGISTRY.getDappInfo(0);
+
+      expect(dappInfo.creator).to.equal(owner.address);
+      expect(dappInfo.popURI).to.equal(
+        "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ"
+      );
+      expect(dappInfo.ceramicURI).to.equal(
+        "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o"
+      );
+      expect(dappInfo.price).to.equal(ethers.utils.parseEther("0.01"));
+
+      expect(await POP.exists(0)).to.equal(true);
+      expect(await POP.exists(1)).to.equal(false);
     });
+
+    it("should not register (invalid creator address)", async function () {
+      await expect(
+        REGISTRY.register({
+          creator: ethers.constants.AddressZero,
+          popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+          ceramicURI:
+            "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o",
+          price: ethers.utils.parseEther("0.01"),
+        })
+      ).to.be.revertedWith("DappStopRegistry: Invalid creator address!");
+    });
+
+    it("should not register (invalid popURI)", async function () {
+      await expect(
+        REGISTRY.register({
+          creator: owner.address,
+          popURI: "",
+          ceramicURI:
+            "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o",
+          price: ethers.utils.parseEther("0.01"),
+        })
+      ).to.be.revertedWith("DappStopRegistry: Invalid popURI!");
+    });
+    it("should not register (invalid ceramicURI)", async function () {
+      await expect(
+        REGISTRY.register({
+          creator: owner.address,
+          popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+          ceramicURI: "",
+          price: ethers.utils.parseEther("0.01"),
+        })
+      ).to.be.revertedWith("DappStopRegistry: Invalid ceramicURI!");
+    });
+
     it("should buy", async function () {
       await REGISTRY.register({
         creator: owner.address,
@@ -72,6 +122,28 @@ describe("DappStop", function () {
         "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ"
       );
       expect(await POP.tokenSupply(0)).to.equal(1);
+      expect(await POP.totalSupply(0)).to.equal(1);
+    });
+
+    it("should not buy more than 1", async function () {
+      await REGISTRY.register({
+        creator: owner.address,
+        popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+        ceramicURI:
+          "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o",
+        price: ethers.utils.parseEther("0.01"),
+      });
+
+      await REGISTRY.connect(buyer).buy(0, {
+        value: ethers.utils.parseEther("0.01"),
+      });
+
+      await expect(
+        REGISTRY.connect(buyer).buy(0, {
+          value: ethers.utils.parseEther("0.01"),
+        }),
+        "DappStopPoP: Already minted!"
+      );
     });
 
     it("should not buy directly from PoP Contract", async function () {
@@ -125,6 +197,65 @@ describe("DappStop", function () {
           value: ethers.utils.parseEther("0.01"),
         })
       ).to.be.revertedWith("DappStopRegistry: Insufficient ETH!");
+    });
+
+    it("should not update (invalid creator address)", async function () {
+      await REGISTRY.register({
+        creator: owner.address,
+        popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+        ceramicURI:
+          "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o",
+        price: ethers.utils.parseEther("0.01"),
+      });
+
+      await expect(
+        REGISTRY.update(0, {
+          creator: ethers.constants.AddressZero,
+          popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwK",
+          ceramicURI:
+            "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0p",
+          price: ethers.utils.parseEther("0.02"),
+        })
+      ).to.be.revertedWith("DappStopRegistry: Invalid creator address!");
+    });
+
+    it("should update (invalid popURI)", async function () {
+      await REGISTRY.register({
+        creator: owner.address,
+        popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+        ceramicURI:
+          "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o",
+        price: ethers.utils.parseEther("0.01"),
+      });
+
+      await expect(
+        REGISTRY.update(0, {
+          creator: owner.address,
+          popURI: "",
+          ceramicURI:
+            "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0p",
+          price: ethers.utils.parseEther("0.02"),
+        })
+      ).to.be.revertedWith("DappStopRegistry: Invalid popURI!");
+    });
+
+    it("should update (invalid ceramicURI)", async function () {
+      await REGISTRY.register({
+        creator: owner.address,
+        popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+        ceramicURI:
+          "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o",
+        price: ethers.utils.parseEther("0.01"),
+      });
+
+      await expect(
+        REGISTRY.update(0, {
+          creator: owner.address,
+          popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwK",
+          ceramicURI: "",
+          price: ethers.utils.parseEther("0.02"),
+        })
+      ).to.be.revertedWith("DappStopRegistry: Invalid ceramicURI!");
     });
   });
 });
