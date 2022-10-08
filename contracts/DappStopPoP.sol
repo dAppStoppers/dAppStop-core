@@ -31,14 +31,6 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     uint256 public index;
 
     /**
-     * @dev Require _msgSender() to be the creator of the token id
-     */
-    modifier creatorOnly(uint256 _id) {
-        require(msg.sender == creators[_id], "DappStopPoP: Creator Only");
-        _;
-    }
-
-    /**
      * @dev Require msg.sender to be the registry
      */
     modifier registryOnly() {
@@ -63,12 +55,7 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     function uri(uint256 _id) public view override returns (string memory) {
         require(_exists(_id), "DappStopPoP: Non-existent token");
         // We have to convert string to bytes to check for existence
-        bytes memory customUriBytes = bytes(customUri[_id]);
-        if (customUriBytes.length > 0) {
-            return customUri[_id];
-        } else {
-            return super.uri(_id);
-        }
+        return customUri[_id];
     }
 
     /**

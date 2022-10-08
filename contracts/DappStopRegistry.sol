@@ -48,6 +48,20 @@ contract DappStopRegistry is IDappStopRegistry {
         uint256 dappId = DAPPSTOP_POP.tokenIndex();
         dappInfo[dappId] = _dappInfo;
 
+        require(
+            _dappInfo.creator != address(0),
+            "DappStopRegistry: Invalid creator address!"
+        );
+        require(
+            bytes(_dappInfo.popURI).length > 0,
+            "DappStopRegistry: Invalid popURI!"
+        );
+        require(
+            bytes(_dappInfo.ceramicURI).length > 0,
+            "DappStopRegistry: Invalid ceramicURI!"
+        );
+        require(_dappInfo.price != 0, "DappStopRegistry: Invalid price!");
+
         DAPPSTOP_POP.create(msg.sender, _dappInfo.popURI);
 
         emit Registered(msg.sender, dappId, _dappInfo);
@@ -62,6 +76,19 @@ contract DappStopRegistry is IDappStopRegistry {
             msg.sender == getCreator(_dappId),
             "DappStopRegistry: You must be the creator of this dApp"
         );
+        require(
+            _dappInfo.creator != address(0),
+            "DappStopRegistry: Invalid creator address!"
+        );
+        require(
+            bytes(_dappInfo.popURI).length > 0,
+            "DappStopRegistry: Invalid popURI!"
+        );
+        require(
+            bytes(_dappInfo.ceramicURI).length > 0,
+            "DappStopRegistry: Invalid ceramicURI!"
+        );
+        require(_dappInfo.price != 0, "DappStopRegistry: Invalid price!");
 
         dappInfo[_dappId] = _dappInfo;
         DAPPSTOP_POP.updateURI(_dappId, _dappInfo.popURI);
