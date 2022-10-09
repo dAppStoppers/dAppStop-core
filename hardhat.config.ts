@@ -104,8 +104,8 @@ module.exports = {
       saveDeployments: true,
     },
     optimism_testnet: {
-      url: "https://kovan.optimism.io",
-      chainId: 69,
+      url: "https://goerli.optimism.io/",
+      chainId: 420,
       accounts: [PRIVATE_KEY],
       saveDeployments: true,
     },
