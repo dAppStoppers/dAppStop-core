@@ -6,6 +6,7 @@
 		"scripts": {
 				"start": "npx hardhat node",
 				"test": "npx hardhat test",
+				"deploy:goerli": "npx hardhat deploy --network goerli --tags DappStop",
 				"deploy:mumbai": "npx hardhat deploy --network mumbai --tags DappStop",
 				"deploy:otest": "npx hardhat deploy --network optimism_testnet --tags DappStop",
 				"deploy:ktest": "npx hardhat deploy --network klaytn_testnet --tags DappStop",
@@ -14,6 +15,8 @@
 				"verify:mumbai": "npx hardhat --network mumbai etherscan-verify",
 				"verify:otest": "npx hardhat --network optimism_testnet etherscan-verify",
 				"verify:ktest": "npx hardhat --network klaytn_testnet etherscan-verify",
+				"mock:mumbai": "npx hardhat run ./scripts/add-mock-data.ts --network mumbai",
+				"mock:goerli": "npx hardhat run ./scripts/add-mock-data.ts --network goerli",
 				"new:wallet": "npx hardhat new:wallet"
 		},
 		"author": "",
