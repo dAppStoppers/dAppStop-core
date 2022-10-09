@@ -5,6 +5,8 @@ coverage.json
 typechain
 package-lock.json
 deployments/localhost
+*.apk
+*.zip
 
 #Hardhat files
 cache
