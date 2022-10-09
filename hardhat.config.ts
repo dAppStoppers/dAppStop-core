@@ -55,7 +55,7 @@ module.exports = {
     localhost: {
       url: "http://127.0.0.1:8545",
       saveDeployments: true,
-      accounts: [PRIVATE_KEY],
+      // accounts: [PRIVATE_KEY],
     },
     hardhat: {
       // TODO: Add snapshot block
