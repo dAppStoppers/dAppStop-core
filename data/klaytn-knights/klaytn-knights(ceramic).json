@@ -1,0 +1,12 @@
+{
+  "title": "Klaytn Knights",
+  "description": "페이스북과 EOS 에서 사랑받았던 정통 턴제 RPG 게임 Sword & Magic이 드디어 클레이튼 블록체인에 상륙했습니다!",
+  "version": "1.0.0",
+  "app_icon_url": "ipfs://QmP1by7FZVUzeNeMLgL4escD1cFzy315rkPtZ816q8xM4C",
+  "preview_image_urls": ["ipfs://QmZ3zxxXbvPvSJPnspsbCCoVKYJbdxvpPGVCgAB5FYHnAj","ipfs://QmVHYDEegdRrtUrBXUCjcXVevUHW7WEHZk6AQo5tT6xqPW"],
+  "chain": "Polygon",
+  "category": "Game",
+  "apk_url": "ipfs://QmZpmnpNrhiPYgxBQsvG2t9r31gkfM7Ld4Jf9AFpM9q7GK",
+  "token_gated": true,
+  "price": "0.03"
+}

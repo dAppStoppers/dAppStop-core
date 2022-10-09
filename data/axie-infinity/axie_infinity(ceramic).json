@@ -1,0 +1,12 @@
+{
+  "title": "Axie Infinity",
+  "description": "Axie Infinity is a Pokémon-inspired universe where anyone can earn tokens through skilled gameplay and contributions to the ecosystem. Players can battle, collect, raise, and build a land-based kingdom for their pets.",
+  "version": "1.0.0",
+  "app_icon_url": "ipfs://QmTuAhBKcNwBbqU1tHYYZSdVCHk6UpKiRH4Bz1nDgueyWv",
+  "preview_image_urls": ["ipfs://Qmb3vaMazxofg999F4trCpnG1wrKogK1ZdYS5vu7N4hgAn","ipfs://QmPve5XSaqtFqTbkkP4igdZo9FckFiWYZ8gBFM8qqtqJeX"],
+  "chain": "Polygon",
+  "category": "Game",
+  "apk_url": "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+  "token_gated": false,
+  "price": "0.05"
+}

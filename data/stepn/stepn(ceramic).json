@@ -1,0 +1,12 @@
+{
+  "title": "StepN",
+  "description": "STEPN is a Web3 running app with fun game and social elements.",
+  "version": "1.0.0",
+  "app_icon_url": "ipfs://Qmc1ZVu92ZBHJfaWb35fAsEuSb4NRSedf4awPDcEoBpZnJ",
+  "preview_image_urls": ["ipfs://QmRZ2auGbBxnYvd18sRt7DjBaan5ccSiYBoubfnFYBeHkS","ipfs://QmWY2GwyXLf6x2awprx214bbkJHFXwS1uMyAWssx3m2gZD"],
+  "chain": "Polygon",
+  "category": "Game",
+  "apk_url": "ipfs://QmawfUCJeoSP3We8cU6LA6YToAMpM3GeBrzN2PyZyWcJz6",
+  "token_gated": true,
+  "price": "0.03"
+}
