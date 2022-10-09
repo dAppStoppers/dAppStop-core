@@ -21,7 +21,7 @@ async function main() {
   };
 
   const mock_2 = {
-    creator: deployer.address,
+    creator: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
     popURI: "ipfs://QmVUKs8DZKTwnYw3Ffje7bSipVD1kZqMJBNLQCsbZckYN4",
     ceramicURI:
       "ceramic://kjzl6cwe1jw14bh206e6r2drq5s7y9ildzv3sovrgis3gs7mr14gj07fs8g6fhz",
@@ -37,9 +37,9 @@ async function main() {
   };
 
   // Register Mock Data
-  await REGISTRY.register(mock_1);
+  let tx = await REGISTRY.register(mock_1);
   await REGISTRY.register(mock_2);
-  await REGISTRY.register(mock_3);
+  // await REGISTRY.register(mock_3);
 }
 
 main()
