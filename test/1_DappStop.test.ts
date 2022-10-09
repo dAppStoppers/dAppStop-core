@@ -258,4 +258,28 @@ describe("DappStop", function () {
       ).to.be.revertedWith("DappStopRegistry: Invalid ceramicURI!");
     });
   });
+
+  it("should be non-transferrable", async function () {
+    await REGISTRY.register({
+      creator: owner.address,
+      popURI: "ipfs://QmUXm57kNmkGXeFPskNgXBMxEtHBzfTwrkvDqX1iAVbFwJ",
+      ceramicURI:
+        "ceramic://kjzl6cwe1jw1464uromc2h309g4xxslbmrsntbo6f3h9o03pquio33rayr5we0o",
+      price: ethers.utils.parseEther("0.01"),
+    });
+
+    await REGISTRY.connect(buyer).buy(0, {
+      value: ethers.utils.parseEther("0.01"),
+    });
+
+    await expect(
+      POP.connect(buyer).safeTransferFrom(
+        buyer.address,
+        owner.address,
+        0,
+        1,
+        "0x00"
+      )
+    ).to.be.revertedWith("DappStopPoP: Non-transferrable");
+  });
 });

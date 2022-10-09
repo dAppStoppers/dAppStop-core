@@ -127,4 +127,16 @@ contract DappStopPoP is ERC1155, IDappStopPoP {
     function exists(uint256 _id) external view returns (bool) {
         return _exists(_id);
     }
+
+    function _beforeTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) internal override {
+        require(from == address(0), "DappStopPoP: Non-transferrable");
+        super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
+    }
 }
